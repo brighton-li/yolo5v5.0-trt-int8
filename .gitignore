@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+deploy/_syntax_check/
 
 # Distribution / packaging
 .Python
