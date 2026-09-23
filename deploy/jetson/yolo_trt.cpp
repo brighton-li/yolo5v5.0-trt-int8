@@ -1,9 +1,9 @@
 // ============================================================================
-//  yolo_trt.cpp —— YOLOv5-5.0 受电弓/接触点检测, TensorRT C++ 完整部署示例
+//  yolo_trt.cpp —— YOLOv5-5.0 , TensorRT C++ 
 //
 //  适用: Jetson 全系 (Nano/Xavier/Orin) 以及任意 x86 + NVIDIA GPU 的 Linux
 //  模型: best.onnx -> best_fp16.engine / best_int8_minmax.engine
-//  输入: 640 x 480  ⚠️ 注意是「高=640, 宽=480」, 这是训练时的历史遗留口径,
+//  输入: 640 x 480   注意是「高=640, 宽=480」, 这是训练时的历史遗留口径,
 //                    千万不要"顺手修正"成 480x640, 否则精度直接崩
 //
 //  编译: 见同目录 CMakeLists.txt        运行: ./yolo_trt <engine> <图片或目录>
@@ -11,7 +11,7 @@
 //  ── 本文件与 Python 版 (infer_trt.py) 的等价性已用 verify_cpp_logic.py 验证 ──
 //     坐标最大偏差 6.1e-05 px / 置信度 1.2e-07 / 框数与类别完全一致
 //
-//  ── TensorRT 10 API 变更提醒 (老教程全部失效) ──────────────────────────────
+//  ── TensorRT 10 API 变更提醒 (老教程全部gg) ──────────────────────────────
 //     × context->enqueueV2(...)          -> 用 enqueueV3(stream)
 //     × context->execute(1,...)          -> 用 enqueueV3 / executeV3
 //     × engine->getNbBindings()          -> 用 getNbIOTensors()

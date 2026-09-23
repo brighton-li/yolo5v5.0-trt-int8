@@ -2,10 +2,10 @@
 """
 convert_rknn.py —— ONNX -> RKNN (RK3588 NPU)
 
-⚠️ 这个脚本必须在 【x86_64 Linux】 上跑, 不能在 RK3588 板子上跑。
+ 这个脚本必须在 【x86_64 Linux】 上跑, 不能在 RK3588 板子上跑。
    rknn-toolkit2 只有 x86_64 Linux 版本 (Windows / ARM 都没有)。
 
-安装 (建议 conda 新建 py3.8~3.10 环境):
+建议 conda 新建 py3.8~3.10 环境:
     pip install rknn-toolkit2 -i https://pypi.tuna.tsinghua.edu.cn/simple
     # 或从 RK 官方 repo 装 wheel:
     #   https://github.com/airockchip/rknn-toolkit2  ->  rknn_toolkit2-*.whl
@@ -17,14 +17,6 @@ convert_rknn.py —— ONNX -> RKNN (RK3588 NPU)
     python convert_rknn.py --onnx best.onnx --dataset calib_500.txt \
                            --out best_rk3588.rknn --platform rk3588
 
-关键点
-------
-1. **那 500 张校准图可以原样复用**: RKNN 的 dataset.txt 就是「每行一个图片
-   绝对路径」, 与 TensorRT 用的 calib_500.txt 格式完全一致, 直接用。
-2. **量化算法选 normal (= MinMax)**: 与我们在 TensorRT 上得到的最佳实践一致。
-   TensorRT 那边 Entropy 掉 3.51%、MinMax 只掉 0.06%, 原因见量化验证报告。
-3. **输入尺寸保持 640x480 (高640 宽480)**, 不要"修正"。RKNN 的 mean/std 只
-   负责归一化, 不改变几何。
 """
 import os
 import sys
